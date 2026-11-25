@@ -25,7 +25,11 @@ function fmtSize(n) {
     else { $("warn").style.display = "block"; }
   };
 
-  $("main-btn").onclick = (e) => go(tab.url, { title: "" }, e.target);
+  $("main-btn").onclick = (e) => go(tab.url, { title: "", mode: "now" }, e.target);
+  $("grab-btn").onclick = async () => { await send({ type: "grab", tabId: tab.id }); window.close(); };
+  const c = await chrome.storage.local.get("catchDownloads");
+  $("catch").checked = c.catchDownloads !== false;
+  $("catch").onchange = () => chrome.storage.local.set({ catchDownloads: $("catch").checked });
 
   const { media } = await send({ type: "list", tabId: tab.id });
   if (media && media.length) {
@@ -39,7 +43,7 @@ function fmtSize(n) {
       const b = document.createElement("button");
       b.className = "small";
       b.textContent = "Get";
-      b.onclick = () => go(m.url, { referer: tab.url, title: tab.title }, b);
+      b.onclick = () => go(m.url, { referer: tab.url, title: tab.title, mode: "now", withCookies: true }, b);
       li.append(span, b);
       $("list").append(li);
     }

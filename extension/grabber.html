@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MediaGrab - Grabber</title>
+<style>
+  :root { --blue:#1565c0; }
+  body { font: 13px/1.4 "Segoe UI", system-ui, sans-serif; margin: 0; color: #222; background: #f5f7fb; }
+  header { background: var(--blue); color: #fff; padding: 12px 18px; display: flex; align-items: center; gap: 12px; }
+  header h1 { font-size: 17px; margin: 0; flex: 1; font-weight: 600; }
+  header .src { font-size: 12px; opacity: .85; max-width: 55%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 10px 18px; background: #fff; border-bottom: 1px solid #dde3ec; position: sticky; top: 0; }
+  .chip { border: 1px solid #b9c6da; background: #fff; border-radius: 14px; padding: 4px 11px; cursor: pointer; font: inherit; }
+  .chip.on { background: var(--blue); color: #fff; border-color: var(--blue); }
+  .chip b { font-weight: 600; margin-left: 4px; }
+  input[type=search] { flex: 1; min-width: 160px; padding: 6px 9px; border: 1px solid #b9c6da; border-radius: 4px; font: inherit; }
+  select { padding: 5px; font: inherit; }
+  button.go { background: var(--blue); color: #fff; border: 0; border-radius: 4px; padding: 8px 16px; font: inherit; font-weight: 600; cursor: pointer; }
+  button.go:disabled { background: #9fb3cf; cursor: default; }
+  button.lnk { background: none; border: 0; color: var(--blue); cursor: pointer; font: inherit; padding: 4px; }
+  main { padding: 0 18px 30px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; margin-top: 12px; table-layout: fixed; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #edf0f5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  th { background: #eef3fa; font-weight: 600; position: sticky; top: 52px; }
+  tr:hover td { background: #f3f7fd; }
+  td.t span { display: inline-block; padding: 1px 7px; border-radius: 9px; font-size: 11px; color: #fff; }
+  .msg { padding: 30px; text-align: center; color: #666; }
+  #status { margin-left: auto; color: #2e7d32; font-weight: 600; }
+</style>
+</head>
+<body>
+<header><h1>MediaGrab Grabber</h1><span class="src" id="src"></span></header>
+<div class="bar" id="bar">
+  <span id="chips"></span>
+  <input type="search" id="q" placeholder="Filter by name or address...">
+  <label>Quality for video pages <select id="quality">
+    <option value="best">Best</option><option value="1080">1080p</option><option value="720">720p</option>
+    <option value="480">480p</option><option value="mp3">MP3</option></select></label>
+  <button class="lnk" id="all">Select all</button><button class="lnk" id="none">None</button>
+  <button class="go" id="go" disabled>Download selected</button>
+  <span id="status"></span>
+</div>
+<main>
+  <table>
+    <colgroup><col style="width:34px"><col style="width:34%"><col style="width:95px"><col></colgroup>
+    <thead><tr><th><input type="checkbox" id="head"></th><th>File name</th><th>Type</th><th>Address</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <div class="msg" id="msg">Looking for links and media on the page...</div>
+</main>
+<script src="grabber.js"></script>
+</body>
+</html>

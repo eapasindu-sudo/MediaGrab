@@ -16,9 +16,32 @@
       button.mp3 { background:#2e7d32; }
       button.mp3:hover { background:#1b5e20; }
       button.x { background:rgba(0,0,0,.55); padding:6px 7px; }
+      .wrap { position:relative; }
+      .menu { display:none; position:absolute; top:30px; left:0; background:#fff; border-radius:6px; min-width:170px;
+              box-shadow:0 4px 16px rgba(0,0,0,.35); padding:4px 0; font:13px/1.2 "Segoe UI",Roboto,Arial,sans-serif; }
+      .menu.open { display:block; }
+      .menu div { padding:7px 14px; color:#222; cursor:pointer; white-space:nowrap; }
+      .menu div:hover { background:#e3edfb; }
+      .menu .hd { color:#777; font-size:11px; cursor:default; padding:4px 14px; }
+      .menu .hd:hover { background:none; }
     </style>
     <div class="bar">
-      <button class="vid" title="Download this video with MediaGrab">&#11015; Download</button>
+      <div class="wrap">
+        <button class="vid" title="Download this video with MediaGrab - choose quality">&#11015; Download &#9662;</button>
+        <div class="menu">
+          <div class="hd">MediaGrab - choose quality</div>
+          <div data-q="best">Best quality</div>
+          <div data-q="2160">2160p (4K)</div>
+          <div data-q="1440">1440p</div>
+          <div data-q="1080">1080p (Full HD)</div>
+          <div data-q="720">720p (HD)</div>
+          <div data-q="480">480p</div>
+          <div data-q="360">360p</div>
+          <div class="hd">Audio only</div>
+          <div data-q="mp3">MP3 audio</div>
+          <div data-q="m4a">M4A audio</div>
+        </div>
+      </div>
       <button class="mp3" title="Convert to MP3 and download with MediaGrab">&#9835; MP3</button>
       <button class="x" title="Hide on this page">&#10005;</button>
     </div>`;
@@ -79,12 +102,12 @@
 
   function send(quality, btn) {
     if (!current) return;
-    const old = btn.innerHTML;
+    const old = btn === btnVid ? "&#11015; Download &#9662;" : btn.innerHTML;
     const url = urlFor(current);
     chrome.storage.local.get("quality", (s) => {
       const q = quality || s.quality || "best";
       chrome.runtime.sendMessage(
-        { type: "send", url, extra: { quality: q, referer: location.href, title: url === location.href ? "" : document.title } },
+        { type: "send", url, extra: { quality: q, referer: location.href, mode: "now", title: url === location.href ? "" : document.title } },
         (r) => {
           btn.textContent = r && r.ok ? "Sent ✓" : "Open MediaGrab app first";
           setTimeout(() => (btn.innerHTML = old), 2500);
@@ -92,7 +115,17 @@
     });
   }
 
-  btnVid.addEventListener("click", (e) => { e.stopPropagation(); e.preventDefault(); send(null, btnVid); });
+  const menu = root.querySelector(".menu");
+  btnVid.addEventListener("click", (e) => { e.stopPropagation(); e.preventDefault(); menu.classList.toggle("open"); });
+  menu.addEventListener("click", (e) => {
+    e.stopPropagation(); e.preventDefault();
+    const q = e.target.dataset && e.target.dataset.q;
+    if (!q) return;
+    menu.classList.remove("open");
+    chrome.storage.local.set({ quality: q });
+    send(q, btnVid);
+  });
+  document.addEventListener("click", () => menu.classList.remove("open"), true);
   btnMp3.addEventListener("click", (e) => { e.stopPropagation(); e.preventDefault(); send("mp3", btnMp3); });
   root.querySelector(".x").addEventListener("click", (e) => {
     e.stopPropagation(); hidden = true; host.style.display = "none";

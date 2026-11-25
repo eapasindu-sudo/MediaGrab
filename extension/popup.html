@@ -12,7 +12,10 @@
   button { background: #1565c0; color: #fff; border: 0; border-radius: 4px; padding: 7px 10px; cursor: pointer; font: inherit; }
   button:hover { background: #0d47a1; }
   button.small { padding: 3px 8px; font-size: 12px; }
-  #main-btn { width: 100%; font-weight: 600; }
+  #main-btn, #grab-btn { width: 100%; font-weight: 600; margin-bottom: 6px; }
+  button.alt { background: #fff; color: #1565c0; border: 1px solid #1565c0; }
+  button.alt:hover { background: #e3edfb; }
+  .toggle { display: flex; gap: 6px; align-items: center; font-size: 12px; margin: 4px 0; }
   h4 { margin: 12px 0 6px; font-size: 12px; color: #555; text-transform: uppercase; }
   ul { list-style: none; padding: 0; margin: 0; max-height: 220px; overflow-y: auto; }
   li { display: flex; gap: 6px; align-items: center; padding: 5px 0; border-top: 1px solid #eee; }
@@ -37,6 +40,8 @@
     </select>
   </div>
   <button id="main-btn">Download video from this page</button>
+  <button id="grab-btn" class="alt">Grab links &amp; media from this page...</button>
+  <label class="toggle"><input type="checkbox" id="catch"> Catch browser downloads (zip, exe, pdf, mp4...)</label>
   <p class="muted">Works for YouTube, Facebook, Instagram, TikTok and 1000+ sites.</p>
   <h4>Media found on this page</h4>
   <ul id="list"></ul>

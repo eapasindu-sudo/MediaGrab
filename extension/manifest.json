@@ -1,13 +1,16 @@
 {
   "manifest_version": 3,
-  "name": "MediaGrab - Send to Downloader",
-  "version": "1.1.0",
-  "description": "Detects videos and audio on web pages and sends them to the MediaGrab desktop app.",
+  "name": "MediaGrab - Download Manager Integration",
+  "version": "1.2.0",
+  "description": "Catches browser downloads, adds Download/MP3 buttons on videos and grabs links and media from pages for the MediaGrab app.",
   "permissions": [
     "contextMenus",
     "webRequest",
     "storage",
-    "tabs"
+    "tabs",
+    "downloads",
+    "cookies",
+    "scripting"
   ],
   "host_permissions": [
     "<all_urls>"

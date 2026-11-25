@@ -62,19 +62,14 @@ jobs:
 
       - name: Publish release
         if: steps.ver.outputs.exists == 'false'
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{ steps.ver.outputs.version }}
-          name: MediaGrab ${{ steps.ver.outputs.version }}
-          target_commitish: ${{ github.sha }}
-          make_latest: true
-          files: |
-            Output/MediaGrab-Setup.exe
-            dist/MediaGrab.exe
-            MediaGrab-extension.zip
-          body: |
-            **Download `MediaGrab-Setup.exe`** and run it. Already installed? MediaGrab updates itself.
-            `MediaGrab.exe` is the portable version (downloads yt-dlp and ffmpeg on first start).
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $v = "${{ steps.ver.outputs.version }}"
+          $notes = "**Download MediaGrab-Setup.exe** and run it. Already installed? MediaGrab updates itself.`n`nMediaGrab.exe is the portable version (downloads yt-dlp and ffmpeg on first start). MediaGrab-extension.zip is the browser extension (it is also installed with the app)."
+          gh release create "v$v" Output/MediaGrab-Setup.exe dist/MediaGrab.exe MediaGrab-extension.zip --repo "${{ github.repository }}" --target "${{ github.sha }}" --title "MediaGrab $v" --notes $notes --latest
+          if ($LASTEXITCODE -ne 0) { exit 1 }
 
       - name: Keep build files (version already released)
         if: steps.ver.outputs.exists == 'true'

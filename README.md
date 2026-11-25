@@ -1,83 +1,71 @@
-# MediaGrab: a free IDM-style video and audio downloader
+# MediaGrab Download Manager
 
-MediaGrab downloads video and audio from YouTube, Facebook, Instagram, TikTok, X (Twitter), Vimeo, SoundCloud and [1000+ other sites](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md). It also catches plain video/audio files and streams (MP4, M3U8, MP3 and more) on any website, so if a page plays media, you can usually download it.
+A free download manager for Windows that works like IDM:
 
-It is built on two free tools: **yt-dlp** (the download engine) and **ffmpeg** (joins HD video with its audio and makes MP3s). MediaGrab downloads both for you the first time it starts.
+- **Video and audio** from YouTube, Facebook, Instagram, TikTok, X (Twitter), Vimeo, SoundCloud and [1000+ other sites](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md), in any quality from 4K down to 360p, or as **MP3 / M4A**.
+- **Fast downloads of normal files** (zip, exe, iso, pdf, mp4...) using up to 16 connections per file, with **pause and resume**.
+- **Browser integration** (Chrome, Edge, Brave): catches your browser downloads automatically, puts **Download / MP3** buttons on every video, and a **Grabber** that lists every link and media file on a page.
+- **Updates itself** and its video engine automatically.
 
-> **For personal use only.** Download only content you have the right to save, and respect each website's terms of service and copyright law.
+![MediaGrab main window](screenshots/app-window.png)
 
-## What it can do
+> **For personal use only.** Download only content you have the right to save, and respect each website's terms of service and copyright law. DRM-protected services (Netflix, Spotify, Disney+...) can't be downloaded.
 
-- Paste a link and press **Download**. Or just copy a link: MediaGrab catches it from the clipboard.
-- Quality: Best, 4K, 1440p, 1080p, 720p, 480p, 360p, or **audio only (MP3 / M4A)**.
-- Download queue with several downloads at the same time (you choose how many).
-- **Pause / Resume**: stopped downloads continue from where they stopped, even after closing the app.
-- Whole YouTube playlists (tick "Whole playlist").
-- Speed limit, so downloads don't use all your internet.
-- Browser extension (Chrome, Edge, Brave): a button and right-click menu that send the video on the page to MediaGrab, plus a list of media files found on the page, like IDM.
-- Private Facebook / Instagram videos: choose your browser under "Login cookies from browser" so MediaGrab can use your login.
+## Install
 
-## Install (easiest)
+1. Download **`MediaGrab-Setup.exe`** from the [latest release](https://github.com/eapasindu-sudo/MediaGrab/releases/latest) and run it. You don't need admin rights or Python, and yt-dlp and ffmpeg come included.
+   Windows SmartScreen may warn because the app isn't signed. Click **More info > Run anyway**.
+2. Install the browser extension (one time):
+   1. Open `chrome://extensions` (Edge: `edge://extensions`).
+   2. Turn on **Developer mode**.
+   3. Click **Load unpacked** and choose the `extension` folder inside the MediaGrab install folder. In MediaGrab, **Help > Install browser extension...** opens that folder for you.
+   4. Pin the blue MediaGrab icon to the toolbar.
 
-Download **`MediaGrab-Setup.exe`** from the [latest release](https://github.com/eapasindu-sudo/MediaGrab/releases/latest) and run it. It installs MediaGrab with yt-dlp and ffmpeg included, so there's nothing else to install, and you don't need admin rights.
+## Using it
 
-**Automatic updates:** when MediaGrab starts, it checks for a new version of itself and asks you to update (one click; your downloads continue afterwards). It also updates yt-dlp once a day, so YouTube, Facebook and Instagram keep working. You can turn this off under **Tools > Update automatically**.
+| You want to... | Do this |
+| --- | --- |
+| Download a video playing in the browser | Click **Download ▾** on the video and pick a quality, or click **MP3** for audio only |
+| Download a file (zip, exe, pdf...) | Just click the download link as usual. MediaGrab catches it and shows the **Download File Info** window |
+| Download many things from one page | Click the MediaGrab icon > **Grab links & media from this page**, tick what you want, then **Download selected** |
+| Paste a link | **Add URL** in the toolbar (it fills in a link you copied) |
+| Pause / continue | **Stop** and **Resume** (unfinished downloads also continue after you restart the PC) |
+| See details | Double-click a download to open its progress window with each connection's progress |
 
-## Option A: build MediaGrab.exe yourself
+Files are sorted into category folders inside `Downloads\MediaGrab` (Video, Music, Compressed, Documents, Programs, Images, Other). You can change this in **Options**.
 
-1. Install Python from <https://www.python.org/downloads/>. In the installer, tick **"Add python.exe to PATH"**.
-2. Put this `MediaGrab` folder anywhere on your PC (for example `Documents\MediaGrab`).
-3. Double-click **`build_windows.bat`**. Wait until it says "Done!".
-4. Your app is in `dist\MediaGrab.exe`. Copy it anywhere (Desktop is fine) and make a shortcut if you like.
-5. Start it. The first time, click **Yes** to download yt-dlp and ffmpeg (about 110 MB, one time only).
+| Download progress | Grabber |
+| --- | --- |
+| ![Progress window](screenshots/progress-window.png) | ![Grabber](screenshots/grabber.png) |
 
-## Option B: run without building
+| Quality menu on videos | Download File Info |
+| --- | --- |
+| ![Quality menu](screenshots/video-quality-menu.png) | ![Add dialog](screenshots/add-dialog.png) |
 
-Install Python (step 1 above), then double-click **`run_mediagrab.bat`**.
+## Updates
 
-## Install the browser extension (Chrome / Edge / Brave)
+When MediaGrab starts, it checks this repository for a new version and asks you to update (one click; downloads continue afterwards). It also updates yt-dlp once a day, which keeps YouTube, Facebook and Instagram working. Turn this off in **Options > General**.
 
-In MediaGrab, open **Help > Install browser extension...** to see the folder, or use the `extension` folder from this download.
-
-1. Open `chrome://extensions` (Edge: `edge://extensions`).
-2. Turn on **Developer mode** (top right in Chrome, left side in Edge).
-3. Click **Load unpacked** and choose the `extension` folder inside `MediaGrab`.
-4. Pin the blue MediaGrab icon to the toolbar.
-
-How to use it (keep the MediaGrab app open):
-
-- **While a video plays** (YouTube, Facebook, Instagram or any site), blue **Download** and green **MP3** buttons appear at the top-right of the video. Click **MP3** to convert that video to MP3 and download it. Click **x** to hide the buttons on that page.
-- Or click the MediaGrab icon in the toolbar, choose quality, then **Download video from this page**.
-- Right-click a video, a link or the page and choose **Download ... with MediaGrab** (or **Download as MP3**).
-- On other sites: play the video, then click the icon. The number on the icon shows media files it found; press **Get** next to one.
-
-## Tips and fixes
+## Problems?
 
 | Problem | Fix |
 | --- | --- |
-| A site suddenly stops working (YouTube changes often) | **Tools > Update yt-dlp**. Do this first for almost any error. |
-| Facebook / Instagram says login required or private | Set **Login cookies from browser** to the browser where you are logged in. **Firefox works best**; Chrome/Edge sometimes lock their cookies while open. Close that browser and try again, or export a `cookies.txt` with a cookies.txt extension and use **Tools > Choose cookies.txt file**. |
-| HD video has no sound, or MP3 is not made | ffmpeg is missing. Use **Tools > Download / repair ffmpeg**. |
-| Extension says "app not running" | Open MediaGrab first. Only one copy of MediaGrab can run at once. |
-| See why a download failed | Right-click it > **Show error**. |
-| Windows SmartScreen warns about MediaGrab.exe | It's because the exe you built isn't signed. Click **More info > Run anyway**. |
+| A video site stops working | Click **Update** in the toolbar (updates yt-dlp). |
+| Facebook / Instagram says login required | **Options > Sites login**: choose the browser where you are logged in (Firefox works best), or use a `cookies.txt` file. |
+| Browser downloads are not caught | Make sure MediaGrab is open, the extension is installed, and "Catch browser downloads" is ticked in the extension popup. File types are set in **Options > Browser**. |
+| HD video has no sound / no MP3 | **Tools > Download / repair ffmpeg**. |
+| Why did a download fail? | Right-click it > **Show error**. |
 
-Netflix, Disney+, Spotify and other DRM-protected services cannot be downloaded. That's by design.
-
-## Where things are saved
-
-- Downloads: `Downloads\MediaGrab` (change it with **Browse...**).
-- Settings, queue, yt-dlp and ffmpeg: `%LOCALAPPDATA%\MediaGrab`.
-
-## Files
+## For developers
 
 | File | What it is |
 | --- | --- |
-| `mediagrab.py` | The app (Python + Tkinter, no extra libraries needed to run) |
-| `build_windows.bat` | Builds `dist\MediaGrab.exe` |
-| `run_mediagrab.bat` | Runs the app without building |
-| `extension\` | Browser extension (load unpacked) |
+| `mediagrab.py` | The app (Python 3.9+ and Tkinter, no other libraries needed) |
+| `extension/` | Chrome/Edge extension (Manifest V3) |
 | `installer.iss` | Inno Setup script for `MediaGrab-Setup.exe` |
-| `.github/workflows/release.yml` | Builds the installer on GitHub. Raise `VERSION` in `mediagrab.py` and push to `main` to publish an update; installed copies update themselves. |
+| `.github/workflows/release.yml` | Builds the exe and installer on GitHub |
+| `build_windows.bat`, `run_mediagrab.bat` | Build or run locally on Windows |
 
-The extension talks to the app only on your own computer (`127.0.0.1:9614`). The app ignores requests from normal websites, so a web page can't add downloads by itself.
+**To release a new version:** raise `VERSION` in `mediagrab.py` and push to `main`. GitHub builds the installer and publishes release `v<VERSION>`, and installed copies then update themselves.
+
+The extension talks to the app only on your own computer (`127.0.0.1:9614`). The app rejects requests from ordinary websites, so a web page can't add downloads by itself.
