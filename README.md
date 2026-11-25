@@ -78,6 +78,6 @@ Netflix, Disney+, Spotify and other DRM-protected services cannot be downloaded.
 | `run_mediagrab.bat` | Runs the app without building |
 | `extension\` | Browser extension (load unpacked) |
 | `installer.iss` | Inno Setup script for `MediaGrab-Setup.exe` |
-| `.github/workflows/release.yml` | Builds the installer on GitHub. Push a tag such as `v1.2.0` to publish an update, and installed copies update themselves. |
+| `.github/workflows/release.yml` | Builds the installer on GitHub. Raise `VERSION` in `mediagrab.py` and push to `main` to publish an update; installed copies update themselves. |
 
 The extension talks to the app only on your own computer (`127.0.0.1:9614`). The app ignores requests from normal websites, so a web page can't add downloads by itself.
