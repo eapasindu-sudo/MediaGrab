@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { font: 13px/1.4 "Segoe UI", system-ui, sans-serif; width: 340px; margin: 0; color: #222; }
+  header { background: #1565c0; color: #fff; padding: 10px 12px; font-weight: 600; display: flex; justify-content: space-between; }
+  #conn { font-weight: 400; font-size: 12px; }
+  main { padding: 10px 12px; }
+  .row { display: flex; gap: 6px; align-items: center; margin-bottom: 8px; }
+  select { flex: 1; padding: 4px; }
+  button { background: #1565c0; color: #fff; border: 0; border-radius: 4px; padding: 7px 10px; cursor: pointer; font: inherit; }
+  button:hover { background: #0d47a1; }
+  button.small { padding: 3px 8px; font-size: 12px; }
+  #main-btn { width: 100%; font-weight: 600; }
+  h4 { margin: 12px 0 6px; font-size: 12px; color: #555; text-transform: uppercase; }
+  ul { list-style: none; padding: 0; margin: 0; max-height: 220px; overflow-y: auto; }
+  li { display: flex; gap: 6px; align-items: center; padding: 5px 0; border-top: 1px solid #eee; }
+  li span { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
+  .muted { color: #777; font-size: 12px; }
+  .warn { background: #fdecea; color: #8a1c1c; padding: 8px; border-radius: 4px; margin-bottom: 8px; display: none; }
+</style>
+</head>
+<body>
+<header><span>MediaGrab</span><span id="conn">checking...</span></header>
+<main>
+  <div class="warn" id="warn">The MediaGrab app is not running. Open it first, then try again.</div>
+  <div class="row">
+    <label for="q">Quality</label>
+    <select id="q">
+      <option value="best">Best video</option>
+      <option value="1080">1080p</option>
+      <option value="720">720p</option>
+      <option value="480">480p</option>
+      <option value="mp3">Audio only (MP3)</option>
+      <option value="m4a">Audio only (M4A)</option>
+    </select>
+  </div>
+  <button id="main-btn">Download video from this page</button>
+  <p class="muted">Works for YouTube, Facebook, Instagram, TikTok and 1000+ sites.</p>
+  <h4>Media found on this page</h4>
+  <ul id="list"></ul>
+  <p class="muted" id="empty">Nothing found yet. Press play on the video, then open this again.</p>
+</main>
+<script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+__pycache__/
+build/
+dist/
+Output/
+bin/
+*.spec
+ffmpeg/
+ffmpeg.zip
